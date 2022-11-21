@@ -52,14 +52,12 @@ def task(graph: np.array) -> float:
     find_r1to4(l, graph)
     find_r5(l, graph)
 
-    l = pd.DataFrame(l) # здесь будут колонка -- объект, строка -- сотояние
-    l = l.to_numpy().T # А здесь они снова перевернутся, строка -- объект
+    l = pd.DataFrame(l) 
+    l = l.to_numpy().T 
 
-    print(f"Матрица связности графа A = \n{l}")
+    n = len(l) 
 
-    n = len(l) # количество объектов
-
-    s = 0.0 # сумма
+    s = 0.0 
     for elem in l:
         for cond in elem:
             if cond > 0:
@@ -67,11 +65,10 @@ def task(graph: np.array) -> float:
                 logp = math.log10(p)
                 s += p * logp
 
-    return -s # с минусом
+    return -s 
     
 def pipeline(files: list):
     for i, file in enumerate(files):
         A = pd.read_csv(file).to_numpy()
-        print(f"=== Задача №{i} ==========")
         entropy = task(A)
-        print(f"Ответ: энтропия равна {entropy:.4f} \n")
+        print(f"{entropy:.4f} \n")
